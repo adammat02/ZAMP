@@ -22,12 +22,15 @@ LDFLAGS=-Wall
 
 
 
-interp: obj/main.o
-	g++ ${LDFLAGS} -o interp  obj/main.o -ldl
+interp: obj/main.o obj/preprocesor.o
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/preprocesor.o -ldl
 
 obj/main.o: src/main.cpp inc/AbstractInterp4Command.hh inc/AbstractScene.hh\
             inc/AbstractComChannel.hh
 	g++ -c ${CPPFLAGS} -o obj/main.o src/main.cpp
+
+obj/preprocesor.o: src/preprocesor.cpp inc/preprocesor.hh
+	g++ -c ${CPPFLAGS} -o obj/preprocesor.o src/preprocesor.cpp
 
 doc:
 	cd dox; make
