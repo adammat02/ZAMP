@@ -1,5 +1,5 @@
 #ifndef LIBRARYINTERFACE_HH
-#define LIBRSRYINTERFACE_HH
+#define LIBRARYINTERFACE_HH
 
 #include <string>
 #include "AbstractInterp4Command.hh"
