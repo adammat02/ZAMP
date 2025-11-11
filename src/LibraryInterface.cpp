@@ -5,51 +5,51 @@
 #include <string>
 
 LibInterface::LibInterface()
-    : pLibHnd(nullptr), pCreateCmd(nullptr), pCmdName(nullptr) {}
+    : _pLibHnd(nullptr), _pCreateCmd(nullptr), _pCmdName(nullptr) {}
 
 LibInterface::~LibInterface()
 {
-  if (pLibHnd)
+  if (_pLibHnd)
   {
-    dlclose(pLibHnd);
-    pLibHnd = nullptr;
+    dlclose(_pLibHnd);
+    _pLibHnd = nullptr;
   }
 }
 
 bool LibInterface::init(const std::string &fileName)
 {
-  pLibHnd = dlopen(fileName.c_str(), RTLD_LAZY);
-  if (!pLibHnd)
+  _pLibHnd = dlopen(fileName.c_str(), RTLD_LAZY);
+  if (!_pLibHnd)
   {
     std::cerr << "!!! Brak biblioteki: " << fileName << std::endl;
     return false;
   }
 
-  void *pFun = dlsym(pLibHnd, "CreateCmd");
+  void *pFun = dlsym(_pLibHnd, "CreateCmd");
   if (!pFun)
   {
     std::cerr << "!!! Nie znaleziono funkcji CreateCmd" << std::endl;
     return false;
   }
-  pCreateCmd = reinterpret_cast<AbstractInterp4Command *(*)(void)>(pFun);
+  _pCreateCmd = reinterpret_cast<AbstractInterp4Command *(*)(void)>(pFun);
 
-  pFun = dlsym(pLibHnd, "GetCmdName");
+  pFun = dlsym(_pLibHnd, "GetCmdName");
   if (!pFun)
   {
     std::cerr << "!!! Nie znaleziono funkcji GetCmdName!" << std::endl;
     return false;
   }
-  pCmdName = reinterpret_cast<const char *(*)(void)>(pFun);
+  _pCmdName = reinterpret_cast<const char *(*)(void)>(pFun);
 
   return true;
 }
 
 AbstractInterp4Command *LibInterface::GetCmd()
 {
-  return pCreateCmd();
+  return _pCreateCmd();
 }
 
 std::string LibInterface::GetCmdName() const
 {
-  return std::string{pCmdName()};
+  return std::string{_pCmdName()};
 }

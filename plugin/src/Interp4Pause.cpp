@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Interp4Set.hh"
+#include "Interp4Pause.hh"
 
 
 using std::cout;
@@ -8,7 +8,7 @@ using std::endl;
 
 extern "C" {
   AbstractInterp4Command* CreateCmd(void);
-  const char* GetCmdName() { return "Set"; }
+  const char* GetCmdName() { return "Pause"; }
 }
 
 
@@ -21,33 +21,33 @@ extern "C" {
  */
 AbstractInterp4Command* CreateCmd(void)
 {
-  return Interp4Set::CreateCmd();
+  return Interp4Pause::CreateCmd();
 }
 
 
 /*!
  *
  */
-Interp4Set::Interp4Set(): _wsp_x(0)
+Interp4Pause::Interp4Pause(): _czas_pauzy_ms(0)
 {}
 
 
 /*!
  *
  */
-void Interp4Set::PrintCmd() const
+void Interp4Pause::PrintCmd() const
 {
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " " << _wsp_x  << " 10  2 1 1.5 2" << endl;
+  cout << GetCmdName() << " " << _czas_pauzy_ms << endl;
 }
 
 
 /*!
  *
  */
-const char* Interp4Set::GetCmdName() const
+const char* Interp4Pause::GetCmdName() const
 {
   return ::GetCmdName();
 }
@@ -56,7 +56,7 @@ const char* Interp4Set::GetCmdName() const
 /*!
  *
  */
-bool Interp4Set::ExecCmd( AbstractScene      &rScn, 
+bool Interp4Pause::ExecCmd( AbstractScene      &rScn, 
                            const char         *sMobObjName,
 			   AbstractComChannel &rComChann
 			 )
@@ -71,7 +71,7 @@ bool Interp4Set::ExecCmd( AbstractScene      &rScn,
 /*!
  *
  */
-bool Interp4Set::ReadParams(std::istream& Strm_CmdsList)
+bool Interp4Pause::ReadParams(std::istream& Strm_CmdsList)
 {
   /*
    *  Tu trzeba napisać odpowiedni kod.
@@ -83,16 +83,16 @@ bool Interp4Set::ReadParams(std::istream& Strm_CmdsList)
 /*!
  *
  */
-AbstractInterp4Command* Interp4Set::CreateCmd()
+AbstractInterp4Command* Interp4Pause::CreateCmd()
 {
-  return new Interp4Set();
+  return new Interp4Pause();
 }
 
 
 /*!
  *
  */
-void Interp4Set::PrintSyntax() const
+void Interp4Pause::PrintSyntax() const
 {
-  cout << "   Set NazwaObiektu wspX wspY wspZ katOX katOY katOZ" << endl;
+  cout << "   Pause  CzasPauzy[ms]" << endl;
 }

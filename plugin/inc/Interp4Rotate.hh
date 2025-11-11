@@ -1,5 +1,5 @@
-#ifndef  COMMAND4SET_HH
-#define  COMMAND4SET_HH
+#ifndef  COMMAND4ROTATE_HH
+#define  COMMAND4ROTATE_HH
 
 
 #ifndef __GNUG__
@@ -11,9 +11,9 @@
 
 /*!
  * \file
- * \brief Definicja klasy Interp4Set
+ * \brief Definicja klasy Interp4Rotate
  *
- * Plik zawiera definicję klasy Interp4Set ...
+ * Plik zawiera definicję klasy Interp4Rotate ...
  */
 
 /*!
@@ -21,27 +21,23 @@
  *
  *  Klasa modeluj47e ...
  */
-class Interp4Set: public AbstractInterp4Command {
+class Interp4Rotate: public AbstractInterp4Command {
   /*
    *  Tu należy zdefiniować pola, które są niezbędne
    *  do przechowywania wartości parametrów danego polecenia.
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
   std::string _obj_name;
-
-  double _wsp_x; 
-  double _wsp_y;
-  double _wsp_z;
-  double _kat_OX;
-  double _kat_OY;
-  double _kat_OZ;
+  std::string _nazwa_osi;
+  double _szybkosc_katowa;
+  double _kat_obrotu;
 
 
  public:
   /*!
    * \brief
    */
-  Interp4Set();  
+  Interp4Rotate();  
   /*!
    * \brief Wyświetla postać bieżącego polecenia (nazwę oraz wartości parametrów)
    */

@@ -51,5 +51,32 @@ int main()
   pCmd->PrintCmd();
   cout << endl;
 
+  LibInterface libRot;
+  libRot.init("libInterp4Rotate.so");
+
+  pCmd = libRot.GetCmd();
+
+  cout << endl;
+  cout << pCmd->GetCmdName() << endl;
+  cout << endl;
+  pCmd->PrintSyntax();
+  cout << endl;
+  pCmd->PrintCmd();
+  cout << endl;
+
+  LibInterface libP;
+  libP.init("libInterp4Pause.so");
+
+  pCmd = libP.GetCmd();
+
+  cout << endl;
+  cout << pCmd->GetCmdName() << endl;
+  cout << endl;
+  pCmd->PrintSyntax();
+  cout << endl;
+  pCmd->PrintCmd();
+  cout << endl;
+
+
   delete pCmd;
 }

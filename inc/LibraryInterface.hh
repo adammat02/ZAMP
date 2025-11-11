@@ -7,9 +7,9 @@
 class LibInterface
 {
 
-  void *pLibHnd;
-  AbstractInterp4Command *(*pCreateCmd)(void);
-  const char *(*pCmdName)(void);
+  void *_pLibHnd;
+  AbstractInterp4Command *(*_pCreateCmd)(void);
+  const char *(*_pCmdName)(void);
 
 public:
   LibInterface();

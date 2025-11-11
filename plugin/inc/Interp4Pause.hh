@@ -1,6 +1,5 @@
-#ifndef  COMMAND4SET_HH
-#define  COMMAND4SET_HH
-
+#ifndef  COMMAND4PAUSE_HH
+#define  COMMAND4PAUSE_HH
 
 #ifndef __GNUG__
 # pragma interface
@@ -11,9 +10,9 @@
 
 /*!
  * \file
- * \brief Definicja klasy Interp4Set
+ * \brief Definicja klasy Interp4Pause
  *
- * Plik zawiera definicję klasy Interp4Set ...
+ * Plik zawiera definicję klasy Interp4Pause ...
  */
 
 /*!
@@ -21,27 +20,18 @@
  *
  *  Klasa modeluj47e ...
  */
-class Interp4Set: public AbstractInterp4Command {
+class Interp4Pause: public AbstractInterp4Command {
   /*
    *  Tu należy zdefiniować pola, które są niezbędne
    *  do przechowywania wartości parametrów danego polecenia.
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
-  std::string _obj_name;
-
-  double _wsp_x; 
-  double _wsp_y;
-  double _wsp_z;
-  double _kat_OX;
-  double _kat_OY;
-  double _kat_OZ;
-
-
+  double  _czas_pauzy_ms;
  public:
   /*!
    * \brief
    */
-  Interp4Set();  
+  Interp4Pause();  
   /*!
    * \brief Wyświetla postać bieżącego polecenia (nazwę oraz wartości parametrów)
    */
