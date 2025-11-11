@@ -9,7 +9,7 @@ include_directories(${PROJECT_SOURCE_DIR}/inc)
 add_executable(${PROJECT_NAME}
   src/main.cpp 
   src/LibraryInterface.cpp
-  src/preprocesor.cpp
+  src/ProgramInterpreter.cpp
   src/Set4LibInterfaces.cpp
 )
 

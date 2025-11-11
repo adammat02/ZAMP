@@ -1,6 +1,6 @@
-#include "preprocesor.hh"
+#include "ProgramInterpreter.hh"
 
-bool ExecPreprocesor(const char* NazwaPliku, std::string &String4Cmds)
+bool ProgramInterpreter::ExecPreprocesor(const char* NazwaPliku, std::string &String4Cmds)
 {
     std::string Cmd4Preproc = "cpp -P ";
     char Line[LINE_SIZE];
@@ -21,4 +21,13 @@ bool ExecPreprocesor(const char* NazwaPliku, std::string &String4Cmds)
     String4Cmds = OTmpStrm.str();
 
     return pclose(pProc) == 0;
+}
+
+void ProgramInterpreter::AddLibrary(const std::string &LibName)
+{
+    _LibManager.AddLibInterface(LibName);
+}
+
+std::shared_ptr<LibraryInterface> ProgramInterpreter::GetLibInterface(const std::string &LibName){
+    return _LibManager.GetLibInterface(LibName);
 }
