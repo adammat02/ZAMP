@@ -12,11 +12,11 @@
 class ProgramInterpreter
 {
   Set4LibInterfaces _LibManager;
-  bool ExecPreprocesor(const char *NazwaPliku, std::string &String4Cmds);
+
+  bool ExecPreprocesor(const char *NazwaPliku, std::istringstream &Stream4Cmds);
 
 public:
   void AddLibrary(const std::string &LibName);
-  std::shared_ptr<LibraryInterface> GetLibInterface(const std::string &LibName);
   bool ExecProgram(const char *NazwaPliku);
 };
 

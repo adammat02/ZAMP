@@ -7,7 +7,6 @@ void Set4LibInterfaces::AddLibInterface(const std::string &LibName)
   if (pLibInterface->init(LibName))
   {
     _LibInterfaces[pLibInterface->GetCmdName()] = pLibInterface;
-    std::cout << "Dodanie interfejsu biblioteki: " << LibName << std::endl;
   }
   else
   {
