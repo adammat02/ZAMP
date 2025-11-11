@@ -4,10 +4,10 @@
 #include <iostream>
 #include <string>
 
-LibInterface::LibInterface()
+LibraryInterface::LibraryInterface()
     : _pLibHnd(nullptr), _pCreateCmd(nullptr), _pCmdName(nullptr) {}
 
-LibInterface::~LibInterface()
+LibraryInterface::~LibraryInterface()
 {
   if (_pLibHnd)
   {
@@ -16,7 +16,7 @@ LibInterface::~LibInterface()
   }
 }
 
-bool LibInterface::init(const std::string &fileName)
+bool LibraryInterface::init(const std::string &fileName)
 {
   _pLibHnd = dlopen(fileName.c_str(), RTLD_LAZY);
   if (!_pLibHnd)
@@ -44,12 +44,12 @@ bool LibInterface::init(const std::string &fileName)
   return true;
 }
 
-AbstractInterp4Command *LibInterface::GetCmd()
+AbstractInterp4Command *LibraryInterface::GetCmd()
 {
   return _pCreateCmd();
 }
 
-std::string LibInterface::GetCmdName() const
+std::string LibraryInterface::GetCmdName() const
 {
   return std::string{_pCmdName()};
 }

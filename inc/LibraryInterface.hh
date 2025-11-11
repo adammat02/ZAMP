@@ -4,7 +4,7 @@
 #include <string>
 #include "AbstractInterp4Command.hh"
 
-class LibInterface
+class LibraryInterface
 {
 
   void *_pLibHnd;
@@ -12,8 +12,8 @@ class LibInterface
   const char *(*_pCmdName)(void);
 
 public:
-  LibInterface();
-  ~LibInterface();
+  LibraryInterface();
+  ~LibraryInterface();
 
   bool init(const std::string &fileName);
   AbstractInterp4Command *GetCmd();
