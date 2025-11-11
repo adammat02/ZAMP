@@ -28,13 +28,12 @@ class Interp4Set: public AbstractInterp4Command {
    *  Ponieżej zdefiniowane jest tylko jedno pole jako przykład.
    */
   std::string _obj_name;
-
-  double _wsp_x; 
-  double _wsp_y;
-  double _wsp_z;
-  double _kat_OX;
-  double _kat_OY;
-  double _kat_OZ;
+  double _pos_x_m; 
+  double _pos_y_m;
+  double _pos_z_m;
+  double _angle_x_deg;
+  double _angle_y_deg;
+  double _angle_z_deg;
 
 
  public:
