@@ -113,6 +113,6 @@ int main(int argc, char *args[])
 
   ProgInterp.ExecProgram("../opis_dzialan.txt");
 
-  Configuration Config;
-  ReadFile("config/config.xml", Config);
+  // Configuration Config;
+  // ReadFile("config/config.xml", Config);
 }

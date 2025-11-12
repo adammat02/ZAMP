@@ -14,9 +14,9 @@ void Set4LibInterfaces::AddLibInterface(const std::string &LibName)
   }
 }
 
-std::shared_ptr<LibraryInterface> Set4LibInterfaces::GetLibInterface(const std::string &LibName)
+std::shared_ptr<LibraryInterface> Set4LibInterfaces::GetLibInterface(const std::string &LibName) const
 {
-  auto it = _LibInterfaces.find(LibName);
+  LibMap::const_iterator it = _LibInterfaces.find(LibName);
   if (it != _LibInterfaces.end())
   {
     return it->second;

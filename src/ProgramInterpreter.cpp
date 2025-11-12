@@ -37,11 +37,8 @@ bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
         return false;
     }
 
-    while (1)
+    while (Stream4Cmds >> slowo)
     {
-        if (!(Stream4Cmds >> slowo))
-            return true;
-
         std::shared_ptr<LibraryInterface> pLibInter = _LibManager.GetLibInterface(slowo);
         if (pLibInter == nullptr)
         {
@@ -69,6 +66,7 @@ bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
         // }
         pCmd->PrintCmd();
     }
+    return true;
 }
 
 void ProgramInterpreter::AddLibrary(const std::string &LibName)

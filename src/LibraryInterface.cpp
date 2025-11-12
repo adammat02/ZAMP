@@ -44,7 +44,7 @@ bool LibraryInterface::init(const std::string &fileName)
   return true;
 }
 
-AbstractInterp4Command *LibraryInterface::GetCmd()
+AbstractInterp4Command *LibraryInterface::GetCmd() const
 {
   return _pCreateCmd();
 }

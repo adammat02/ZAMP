@@ -16,7 +16,7 @@ public:
   ~LibraryInterface();
 
   bool init(const std::string &fileName);
-  AbstractInterp4Command *GetCmd();
+  AbstractInterp4Command *GetCmd() const;
   std::string GetCmdName() const;
 };
 
