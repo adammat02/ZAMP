@@ -14,7 +14,7 @@ int main(int argc, char *args[])
   if(ProgInterp.init())
   {
     ProgInterp.Read_XML_Config("config/config.xml");
-    //ProgInterp.ExecProgram("../opis_dzialan.txt");
+    ProgInterp.ExecProgram("../opis_dzialan.txt");
   }
   return 0;
 }

@@ -137,7 +137,7 @@ public:
    *
    * Używane do synchronizacji wielowątkowej
    */
-  void LockAccessToObject()
+  void LockAccess()
   {
     _mutex.lock();
   }
@@ -147,7 +147,7 @@ public:
    *
    * Używane do synchronizacji wielowątkowej
    */
-  void UnlockAccessToObject()
+  void UnLockAccess()
   {
     _mutex.unlock();
   }
