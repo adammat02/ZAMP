@@ -13,6 +13,7 @@ add_executable(${PROJECT_NAME}
   src/LibraryInterface.cpp
   src/ProgramInterpreter.cpp
   src/Set4LibInterfaces.cpp
+  src/Scene.cpp
 )
 target_link_libraries(${PROJECT_NAME} xerces-c)
 
