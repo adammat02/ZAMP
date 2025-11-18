@@ -26,13 +26,14 @@ bool ComChannel::AddObj(const std::string &Name, const Vector3D &Shift, const Ve
   std::ostringstream stream;
 
   stream << "AddObj Name=" << Name << " "
-         << "Shift=(" << Shift[0] << "," << Shift[1] << "," << Shift[2] << ") "
-         << "Scale=(" << Scale[0] << "," << Scale[1] << "," << Scale[2] << ") "
-         << "RotXYZ_deg=(" << RotXYZ_deg[0] << "," << RotXYZ_deg[1] << "," << RotXYZ_deg[2] << ") "
-         << "Trans_m=(" << Trans_m[0] << "," << Trans_m[1] << "," << Trans_m[2] << ") "
-         << "RGB=(" << RGB[0] << "," << RGB[1] << "," << RGB[2] << ")\n";
+         << "Shift=" << Shift << " "
+         << "Scale=" << Scale << " "
+         << "RotXYZ_deg=" << RotXYZ_deg << " "
+         << "Trans_m=" << Trans_m << " "
+         << "RGB=" << RGB << "\n";
          
   std::string msg = stream.str();
+  std::cout << "Adding object: " << msg << std::endl;
   return Send(_socket, msg.c_str());
 }
 
@@ -41,10 +42,11 @@ bool ComChannel::UpdateObj(const std::string &Name, const Vector3D &RotXYZ_deg, 
   std::ostringstream stream;
 
   stream << "UpdateObj Name=" << Name << " "
-         << "RotXYZ_deg=(" << RotXYZ_deg[0] << "," << RotXYZ_deg[1] << "," << RotXYZ_deg[2] << ") "
-         << "Trans_m=(" << Trans_m[0] << "," << Trans_m[1] << "," << Trans_m[2] << ")\n";
+         << "RotXYZ_deg=" << RotXYZ_deg << " "
+         << "Trans_m=" << Trans_m << "\n";
 
   std::string msg = stream.str();
+  std::cout << "Updating object: " << msg << std::endl;
   return Send(_socket, msg.c_str());
 }
 

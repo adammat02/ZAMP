@@ -43,7 +43,7 @@ public:
    */
   friend std::ostream &operator<<(std::ostream &os, const Vector3D &vec)
   {
-    os << vec[0] << " " << vec[1] << " " << vec[2];
+    os << "(" << vec[0] << "," << vec[1] << "," << vec[2] << ")";
     return os;
   }
 };
