@@ -2,16 +2,32 @@
 #define COMCHANNEL_HH
 
 #include "AbstractComChannel.hh"
+#include "Vector3D.hh"
+#include <string>
+#include <mutex>
+
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <cstring>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include "Port.hh"
 
 class ComChannel : public AbstractComChannel
 {
 
   int _socket;
-  
+
   std::mutex _mutex;
 
+  bool Send(int Sk2Server, const char *sMesg);
+
 public:
-  ~ComChannel() {}
+  ~ComChannel();
 
   /*!
    * \brief Inicjalizuje destryptor gniazda.
@@ -59,6 +75,16 @@ public:
   {
     return _mutex;
   }
+
+  bool AddObj(const std::string &Name, const Vector3D &Shift, const Vector3D &Scale,
+              const Vector3D &RotXYZ_deg, const Vector3D &Trans_m,
+              const Vector3D &RGB);
+
+  bool UpdateObj(const std::string &Name, const Vector3D &RotXYZ_deg, const Vector3D &Trans_m);
+
+  bool Clear();
+
+  bool Close();
 };
 
 #endif

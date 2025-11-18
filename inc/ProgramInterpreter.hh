@@ -18,8 +18,12 @@ class ProgramInterpreter
   ComChannel _Chann2Serv;
 
   bool ExecPreprocesor(const char *NazwaPliku, std::istringstream &Stream4Cmds);
+  bool OpenConnection();
 
 public:
+  ~ProgramInterpreter();
+
+  bool init();
 
   bool Read_XML_Config(const char *NazwaPliku);
   bool ExecProgram(const char *NazwaPliku);

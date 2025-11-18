@@ -11,6 +11,10 @@ int main(int argc, char *args[])
 
   ProgramInterpreter ProgInterp;
 
-  ProgInterp.Read_XML_Config("config/config.xml");
-  ProgInterp.ExecProgram("../opis_dzialan.txt");
+  if(ProgInterp.init())
+  {
+    ProgInterp.Read_XML_Config("config/config.xml");
+    //ProgInterp.ExecProgram("../opis_dzialan.txt");
+  }
+  return 0;
 }

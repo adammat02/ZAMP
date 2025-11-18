@@ -36,6 +36,43 @@ bool ProgramInterpreter::ExecPreprocesor(const char *NazwaPliku, std::istringstr
     return pclose(pProc) == 0;
 }
 
+bool ProgramInterpreter::OpenConnection()
+{
+    struct sockaddr_in DaneAdSerw;
+
+    bzero((char *)&DaneAdSerw, sizeof(DaneAdSerw));
+
+    DaneAdSerw.sin_family = AF_INET;
+    DaneAdSerw.sin_addr.s_addr = inet_addr("127.0.0.1");
+    DaneAdSerw.sin_port = htons(PORT);
+
+    int Socket = socket(AF_INET, SOCK_STREAM, 0);
+
+    if (Socket < 0)
+    {
+        std::cerr << "*** Blad otwarcia gniazda." << std::endl;
+        return false;
+    }
+
+    _Chann2Serv.Init(Socket);
+
+    if (connect(Socket, (struct sockaddr *)&DaneAdSerw, sizeof(DaneAdSerw)) < 0)
+    {
+        std::cerr << "*** Brak mozliwosci polaczenia do portu: " << PORT << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool ProgramInterpreter::init()
+{
+    if (!OpenConnection())
+    {
+        return false;
+    }
+    return true;
+}
+
 bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
 {
     std::istringstream Stream4Cmds;
@@ -168,6 +205,7 @@ bool ProgramInterpreter::Read_XML_Config(const char *sFileName)
         _LibManager.AddLibInterface(path);
     }
 
+    _Chann2Serv.Clear();
     for (const CuboidConfig &cuboid : rConfig.GetCuboids())
     {
         Cuboid *pCuboid = new Cuboid();
@@ -177,10 +215,27 @@ bool ProgramInterpreter::Read_XML_Config(const char *sFileName)
         pCuboid->SetAng_Pitch_deg(cuboid.RotXYZ_deg[1]);
         pCuboid->SetAng_Yaw_deg(cuboid.RotXYZ_deg[2]);
 
-        _Scn.AddMobileObj(pCuboid);
+        if (_Chann2Serv.AddObj(cuboid.Name, cuboid.Shift, cuboid.Scale,
+                               cuboid.RotXYZ_deg, cuboid.Trans_m,
+                               cuboid.RGB))
+        {
+            _Scn.AddMobileObj(pCuboid);
+            std::cout << "Dodano obiekt: " << cuboid.Name << std::endl;
+        }
+        else
+        {
+            std::cerr << "Nie dodano obiektu: " << cuboid.Name << std::endl;
+        }
     }
 
     delete pParser;
     delete pHandler;
     return true;
+}
+
+ProgramInterpreter::~ProgramInterpreter()
+{
+    _Chann2Serv.Close();
+
+    close(_Chann2Serv.GetSocket());
 }
