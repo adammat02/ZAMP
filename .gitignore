@@ -2,5 +2,7 @@
 libs/
 *obj/
 build/
+doc/
+*.log
 
 interp

@@ -8,6 +8,7 @@
 #include "Set4LibInterfaces.hh"
 #include "Scene.hh"
 #include "ComChannel.hh"
+#include "Configuration.hh"
 
 #define LINE_SIZE 500
 
@@ -21,6 +22,7 @@ class ProgramInterpreter
 
 public:
   void AddLibrary(const std::string &LibName);
+  bool Read_XML_Config(const char *NazwaPliku, Configuration &rConfig);
   bool ExecProgram(const char *NazwaPliku);
 };
 
