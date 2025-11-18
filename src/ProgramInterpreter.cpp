@@ -5,9 +5,10 @@
 
 #include "ProgramInterpreter.hh"
 #include "xmlinterp.hh"
+#include "Configuration.hh"
+#include "Cuboid.hh"
 
 using namespace xercesc;
-
 
 bool ProgramInterpreter::ExecPreprocesor(const char *NazwaPliku, std::istringstream &Stream4Cmds)
 {
@@ -78,94 +79,108 @@ bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
     return true;
 }
 
-void ProgramInterpreter::AddLibrary(const std::string &LibName)
-{
-    _LibManager.AddLibInterface(LibName);
-}
-
 /*!
  * Czyta z pliku opis poleceń i dodaje je do listy komend,
  * które robot musi wykonać.
  * \param sFileName - (\b we.) nazwa pliku z opisem poleceń.
- * \param CmdList - (\b we.) zarządca listy poleceń dla robota.
  * \retval true - jeśli wczytanie zostało zrealizowane poprawnie,
  * \retval false - w przeciwnym przypadku.
  */
-bool ProgramInterpreter::Read_XML_Config(const char *sFileName, Configuration &rConfig)
+bool ProgramInterpreter::Read_XML_Config(const char *sFileName)
 {
-  try
-  {
-    XMLPlatformUtils::Initialize();
-  }
-  catch (const XMLException &toCatch)
-  {
-    char *message = XMLString::transcode(toCatch.getMessage());
-    std::cerr << "Error during initialization! :\n";
-    std::cerr << "Exception message is: \n"
-         << message << "\n";
-    XMLString::release(&message);
-    return 1;
-  }
-
-  SAX2XMLReader *pParser = XMLReaderFactory::createXMLReader();
-
-  pParser->setFeature(XMLUni::fgSAX2CoreNameSpaces, true);
-  pParser->setFeature(XMLUni::fgSAX2CoreValidation, true);
-  pParser->setFeature(XMLUni::fgXercesDynamic, false);
-  pParser->setFeature(XMLUni::fgXercesSchema, true);
-  pParser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
-
-  pParser->setFeature(XMLUni::fgXercesValidationErrorAsFatal, true);
-
-  DefaultHandler *pHandler = new XMLInterp4Config(rConfig);
-  pParser->setContentHandler(pHandler);
-  pParser->setErrorHandler(pHandler);
-
-  try
-  {
-
-    if (!pParser->loadGrammar("config/config.xsd",
-                              xercesc::Grammar::SchemaGrammarType, true))
+    try
     {
-      std::cerr << "!!! Plik grammar/actions.xsd, '" << std::endl
-           << "!!! ktory zawiera opis gramatyki, nie moze zostac wczytany."
-           << std::endl;
-      return false;
+        XMLPlatformUtils::Initialize();
     }
-    pParser->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, true);
-    pParser->parse(sFileName);
-  }
-  catch (const XMLException &Exception)
-  {
-    char *sMessage = XMLString::transcode(Exception.getMessage());
-    std::cerr << "Informacja o wyjatku: \n"
-         << "   " << sMessage << "\n";
-    XMLString::release(&sMessage);
-    return false;
-  }
-  catch (const SAXParseException &Exception)
-  {
-    char *sMessage = XMLString::transcode(Exception.getMessage());
-    char *sSystemId = xercesc::XMLString::transcode(Exception.getSystemId());
+    catch (const XMLException &toCatch)
+    {
+        char *message = XMLString::transcode(toCatch.getMessage());
+        std::cerr << "Error during initialization! :\n";
+        std::cerr << "Exception message is: \n"
+                  << message << "\n";
+        XMLString::release(&message);
+        return 1;
+    }
 
-    std::cerr << "Blad! " << std::endl
-         << "    Plik:  " << sSystemId << std::endl
-         << "   Linia: " << Exception.getLineNumber() << std::endl
-         << " Kolumna: " << Exception.getColumnNumber() << std::endl
-         << " Informacja: " << sMessage
-         << std::endl;
+    SAX2XMLReader *pParser = XMLReaderFactory::createXMLReader();
 
-    XMLString::release(&sMessage);
-    XMLString::release(&sSystemId);
-    return false;
-  }
-  catch (...)
-  {
-    std::cout << "Zgloszony zostal nieoczekiwany wyjatek!\n";
-    return false;
-  }
+    pParser->setFeature(XMLUni::fgSAX2CoreNameSpaces, true);
+    pParser->setFeature(XMLUni::fgSAX2CoreValidation, true);
+    pParser->setFeature(XMLUni::fgXercesDynamic, false);
+    pParser->setFeature(XMLUni::fgXercesSchema, true);
+    pParser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
 
-  delete pParser;
-  delete pHandler;
-  return true;
+    pParser->setFeature(XMLUni::fgXercesValidationErrorAsFatal, true);
+
+    Configuration rConfig;
+
+    DefaultHandler *pHandler = new XMLInterp4Config(rConfig);
+    pParser->setContentHandler(pHandler);
+    pParser->setErrorHandler(pHandler);
+
+    try
+    {
+
+        if (!pParser->loadGrammar("config/config.xsd",
+                                  xercesc::Grammar::SchemaGrammarType, true))
+        {
+            std::cerr << "!!! Plik grammar/actions.xsd, '" << std::endl
+                      << "!!! ktory zawiera opis gramatyki, nie moze zostac wczytany."
+                      << std::endl;
+            return false;
+        }
+        pParser->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, true);
+        pParser->parse(sFileName);
+    }
+    catch (const XMLException &Exception)
+    {
+        char *sMessage = XMLString::transcode(Exception.getMessage());
+        std::cerr << "Informacja o wyjatku: \n"
+                  << "   " << sMessage << "\n";
+        XMLString::release(&sMessage);
+        return false;
+    }
+    catch (const SAXParseException &Exception)
+    {
+        char *sMessage = XMLString::transcode(Exception.getMessage());
+        char *sSystemId = xercesc::XMLString::transcode(Exception.getSystemId());
+
+        std::cerr << "Blad! " << std::endl
+                  << "    Plik:  " << sSystemId << std::endl
+                  << "   Linia: " << Exception.getLineNumber() << std::endl
+                  << " Kolumna: " << Exception.getColumnNumber() << std::endl
+                  << " Informacja: " << sMessage
+                  << std::endl;
+
+        XMLString::release(&sMessage);
+        XMLString::release(&sSystemId);
+        return false;
+    }
+    catch (...)
+    {
+        std::cout << "Zgloszony zostal nieoczekiwany wyjatek!\n";
+        return false;
+    }
+
+    // Dalej obsluzenie configu
+    for (const std::string &path : rConfig.GetLibraryPaths())
+    {
+        _LibManager.AddLibInterface(path);
+    }
+
+    for (const CuboidConfig &cuboid : rConfig.GetCuboids())
+    {
+        Cuboid *pCuboid = new Cuboid();
+        pCuboid->SetName(cuboid.Name.c_str());
+        pCuboid->SetPosition_m(cuboid.Trans_m);
+        pCuboid->SetAng_Roll_deg(cuboid.RotXYZ_deg[0]);
+        pCuboid->SetAng_Pitch_deg(cuboid.RotXYZ_deg[1]);
+        pCuboid->SetAng_Yaw_deg(cuboid.RotXYZ_deg[2]);
+
+        _Scn.AddMobileObj(pCuboid);
+    }
+
+    delete pParser;
+    delete pHandler;
+    return true;
 }

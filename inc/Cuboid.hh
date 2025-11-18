@@ -32,7 +32,7 @@ public:
    *  zgodnie z ruchem wskazówek zegara wokół osi \e OX.
    *  \return Wartość kąta \e roll wyrażona w stopniach.
    */
-  double GetAng_Roll_deg()
+  double GetAng_Roll_deg() const
   {
     return _rotation[0];
   }
@@ -43,7 +43,7 @@ public:
    *  zgodnie z ruchem wskazówek zegara wokół osi \e OY.
    *  \return Wartość kąta \e pitch wyrażona w stopniach.
    */
-  double GetAng_Pitch_deg()
+  double GetAng_Pitch_deg() const
   {
     return _rotation[1];
   }
@@ -54,7 +54,7 @@ public:
    *  zgodnie z ruchem wskazówek zegara wokół osi \e OZ.
    *  \return Wartość kąta \e yaw wyrażona w stopniach.
    */
-  double GetAng_Yaw_deg()
+  double GetAng_Yaw_deg() const
   {
     return _rotation[2];
   }
