@@ -1,5 +1,10 @@
 #include "Scene.hh"
 
+Scene::~Scene()
+{
+  _Set_MobileObjs.clear();
+}
+
 AbstractMobileObj *Scene::FindMobileObj(const char *sName) const
 {
   ObjMap::const_iterator it = _Set_MobileObjs.find(sName);

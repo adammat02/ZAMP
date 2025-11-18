@@ -58,15 +58,15 @@ class XMLInterp4Config : public xercesc::DefaultHandler {
    /*!
     * \brief Wywoływana jest gdy napotkany zostanie błąd fatalny
     */
-    void fatalError(const xercesc::SAXParseException&);
+    void fatalError(const xercesc::SAXParseException&) override;
    /*!
     * \brief Wywoływana jest gdy napotkany zostanie błąd
     */
-    void error(const xercesc::SAXParseException &);
+    void error(const xercesc::SAXParseException &) override;
    /*!
     * \brief Wywoływana jest gdy parser sygnalizuje ostrzeżenie
     */
-    void warning(const xercesc::SAXParseException &);
+    void warning(const xercesc::SAXParseException &) override;
 
 
     /*!

@@ -31,7 +31,7 @@
 	*  \return Jeśli obiekt zostanie znaleziony, to zwracany jest wskaźnik
 	*          na niego. W przypadku przeciwnym zwracany jest wskaźnik \p nullptr.
         */
-        virtual AbstractMobileObj*  FindMobileObj(const char *sName) = 0;
+        virtual AbstractMobileObj*  FindMobileObj(const char *sName) const = 0;
        /*!
         * \brief Dodaje do sceny nowy obiekt.
 	*
