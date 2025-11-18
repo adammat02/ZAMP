@@ -33,7 +33,6 @@ bool ComChannel::AddObj(const std::string &Name, const Vector3D &Shift, const Ve
          << "RGB=" << RGB << "\n";
          
   std::string msg = stream.str();
-  std::cout << "Adding object: " << msg << std::endl;
   return Send(_socket, msg.c_str());
 }
 
@@ -46,7 +45,6 @@ bool ComChannel::UpdateObj(const std::string &Name, const Vector3D &RotXYZ_deg, 
          << "Trans_m=" << Trans_m << "\n";
 
   std::string msg = stream.str();
-  std::cout << "Updating object: " << msg << std::endl;
   return Send(_socket, msg.c_str());
 }
 

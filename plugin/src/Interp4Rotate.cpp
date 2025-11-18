@@ -35,7 +35,7 @@ void Interp4Rotate::PrintCmd() const
   /*
    *  Tu trzeba napisać odpowiednio zmodyfikować kod poniżej.
    */
-  cout << GetCmdName() << " " << _axis_name << " " << _rotation_speed_deg << " " << _rotation_angle_deg << endl;
+  cout << GetCmdName() << " " << _obj_name << " " << _axis_name << " " << _rotation_speed_deg << " " << _rotation_angle_deg << endl;
 }
 
 /*!
@@ -56,6 +56,14 @@ bool Interp4Rotate::ExecCmd(AbstractScene &rScn,
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
+  AbstractMobileObj *pMobObj = rScn.FindMobileObj(_obj_name.c_str());
+  if (pMobObj == nullptr)
+  {
+    std::cout << "Nie znaleziono obiektu o nazwie: " << _obj_name << std::endl;
+    return false;
+  }
+  PrintCmd();
+
   return true;
 }
 

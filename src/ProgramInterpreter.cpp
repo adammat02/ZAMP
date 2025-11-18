@@ -106,12 +106,11 @@ bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
             return false;
         }
 
-        // if (!pCmd->ExecCmd(_Scn, NULL, _Chann2Serv))
-        // {
-        //     std::cerr << "Niepowodzenie wykonania polecenia" << std::endl;
-        //     return false;
-        // }
-        pCmd->PrintCmd();
+        if (!pCmd->ExecCmd(_Scn, NULL, _Chann2Serv))
+        {
+            std::cerr << "Niepowodzenie wykonania polecenia" << std::endl;
+            return false;
+        }
     }
     return true;
 }

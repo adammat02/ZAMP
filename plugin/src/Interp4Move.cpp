@@ -56,6 +56,14 @@ bool Interp4Move::ExecCmd(AbstractScene &rScn,
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
+  AbstractMobileObj * pMobObj = rScn.FindMobileObj(_obj_name.c_str());
+  if (pMobObj == nullptr)
+  {
+    std::cout << "Nie znaleziono obiektu o nazwie: " << _obj_name << std::endl;
+    return false;
+  }
+  PrintCmd();
+  
   return true;
 }
 

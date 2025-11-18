@@ -64,6 +64,7 @@ bool Interp4Pause::ExecCmd( AbstractScene      &rScn,
   /*
    *  Tu trzeba napisać odpowiedni kod.
    */
+  PrintCmd();
   return true;
 }
 
