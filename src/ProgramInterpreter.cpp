@@ -86,6 +86,12 @@ bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
 
     while (Stream4Cmds >> slowo)
     {
+        if (slowo == "Begin_Parallel_Actions" || slowo == "End_Parallel_Actions")
+        {
+            std::cout << "Polecenia Begin_Parallel_Actions i End_Parallel_Actions nie sa obslugiwane." << std::endl;
+            continue;
+        }
+
         std::shared_ptr<LibraryInterface> pLibInter = _LibManager.GetLibInterface(slowo);
         if (pLibInter == nullptr)
         {
