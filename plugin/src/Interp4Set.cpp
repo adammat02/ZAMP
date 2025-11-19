@@ -64,8 +64,26 @@ bool Interp4Set::ExecCmd(AbstractScene &rScn,
     std::cout << "Nie znaleziono obiektu o nazwie: " << _obj_name << std::endl;
     return false;
   }
-  PrintCmd();
+  pMobObj->LockAccess();
+  rComChann.LockAccess();
 
+  pMobObj->SetPosition_m(Vector3D(_pos_x_m, _pos_y_m, _pos_z_m));
+  pMobObj->SetAng_Roll_deg(_angle_x_deg);
+  pMobObj->SetAng_Pitch_deg(_angle_y_deg);
+  pMobObj->SetAng_Yaw_deg(_angle_z_deg);
+
+  if (!rComChann.UpdateObj(_obj_name,
+                           Vector3D(_angle_x_deg, _angle_y_deg, _angle_z_deg),
+                           Vector3D(_pos_x_m, _pos_y_m, _pos_z_m)))
+  {
+    std::cout << "Blad aktualizacji obiektu o nazwie: " << _obj_name << std::endl;
+    rComChann.UnlockAccess();
+    pMobObj->UnLockAccess();
+    return false;
+  }
+
+  rComChann.UnlockAccess();
+  pMobObj->UnLockAccess();
   return true;
 }
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include "Interp4Rotate.hh"
 
 using std::cout;
@@ -62,7 +63,60 @@ bool Interp4Rotate::ExecCmd(AbstractScene &rScn,
     std::cout << "Nie znaleziono obiektu o nazwie: " << _obj_name << std::endl;
     return false;
   }
-  PrintCmd();
+  double step_deg = _rotation_angle_deg / N;
+  double step_time_us = std::fabs(_rotation_angle_deg / _rotation_speed_deg) * 1e6 / N;
+  double current_angle_deg;
+  if (_axis_name == "OX")
+  {
+    current_angle_deg = pMobObj->GetAng_Roll_deg();
+  }
+  else if (_axis_name == "OY")
+  {
+    current_angle_deg = pMobObj->GetAng_Pitch_deg();
+  }
+  else if (_axis_name == "OZ")
+  {
+    current_angle_deg = pMobObj->GetAng_Yaw_deg();
+  }
+  else
+  {
+    std::cout << "Niepoprawna nazwa osi: " << _axis_name << std::endl;
+    return false;
+  }
+
+  for (int i = 0; i < N; ++i)
+  {
+    pMobObj->LockAccess();
+    current_angle_deg += step_deg;
+    if (_axis_name == "OX")
+    {
+      pMobObj->SetAng_Roll_deg(current_angle_deg);
+    }
+    else if (_axis_name == "OY")
+    {
+      pMobObj->SetAng_Pitch_deg(current_angle_deg);
+    }
+    else if (_axis_name == "OZ")
+    {
+      pMobObj->SetAng_Yaw_deg(current_angle_deg);
+    }
+
+    rComChann.LockAccess();
+
+    if (!rComChann.UpdateObj(_obj_name, Vector3D(pMobObj->GetAng_Roll_deg(), pMobObj->GetAng_Pitch_deg(), pMobObj->GetAng_Yaw_deg()),
+                             pMobObj->GetPositoin_m()))
+    {
+      std::cout << "Blad aktualizacji obiektu o nazwie: " << _obj_name << std::endl;
+      pMobObj->UnLockAccess();
+      rComChann.UnlockAccess();
+      return false;
+    }
+
+    pMobObj->UnLockAccess();
+    rComChann.UnlockAccess();
+
+    usleep(step_time_us);
+  }
 
   return true;
 }

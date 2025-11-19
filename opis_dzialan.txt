@@ -2,11 +2,11 @@
 /*
  *  Przykladowy zestaw polecen
  */
-  Set   Podstawa 2 0 30 0 0 0      // Polozenie i orientacja obiektu A 
-  Set   Podstawa.Ramie1 10 10 0 20 10 0   // Polozenie i orientacja obiektu B
+  Set   Podstawa 0 0 0 0 0 0      // Polozenie i orientacja obiektu A 
+  Set   Podstawa.Ramie1 1 1 1 0 0 0   // Polozenie i orientacja obiektu B
   Rotate Podstawa OX ROTATE_SPEED 40
   Pause  1000                  /* Zawieszenie na 1 sek. */
-  Move   Podstawa  10 10
-  Rotate Podstawa OZ ROTATE_SPEED 60 /* Gdyby Rotate i Move wykonywane byloby */
-  Move   Podstawa 10 20              /* jednoczesnie, to powodowaloby to      */
+  Move   Podstawa  1 1
+  Rotate Podstawa.Ramie1 OZ ROTATE_SPEED 60 /* Gdyby Rotate i Move wykonywane byloby */
+  Move   Podstawa.Ramie1 1 2              /* jednoczesnie, to powodowaloby to      */
                                  /* przesuniecie po luku                  */

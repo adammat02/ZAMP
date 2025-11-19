@@ -111,7 +111,8 @@ bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
             std::cerr << "Niewczytano parametrow" << std::endl;
             return false;
         }
-
+        
+        pCmd->PrintCmd();
         if (!pCmd->ExecCmd(_Scn, NULL, _Chann2Serv))
         {
             std::cerr << "Niepowodzenie wykonania polecenia" << std::endl;
