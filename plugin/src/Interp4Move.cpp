@@ -65,7 +65,7 @@ bool Interp4Move::ExecCmd(AbstractScene &rScn,
     return false;
   }
 
-  double step_dist = _Distance / N;
+  double step_dist = (_Speed_mmS > 0.0 ? 1 : -1) * _Distance / N;
   double step_time_us = std::fabs(_Distance / _Speed_mmS) * 1e6 / N;
   Vector3D current_pos = pMobObj->GetPositoin_m();
   double current_x_deg = pMobObj->GetAng_Roll_deg();
@@ -83,7 +83,6 @@ bool Interp4Move::ExecCmd(AbstractScene &rScn,
     pMobObj->SetPosition_m(current_pos);
 
     rComChann.LockAccess();
-
     if (!rComChann.UpdateObj(_obj_name, Vector3D(current_x_deg, current_y_deg, current_z_deg),
                              current_pos))
     {
@@ -92,8 +91,8 @@ bool Interp4Move::ExecCmd(AbstractScene &rScn,
       pMobObj->UnLockAccess();
       return false;
     }
-
     rComChann.UnlockAccess();
+    
     pMobObj->UnLockAccess();
 
     usleep(step_time_us);
@@ -116,13 +115,13 @@ bool Interp4Move::ReadParams(std::istream &Strm_CmdsList)
     return false;
   }
 
-  if (!(Strm_CmdsList >> _Speed_mmS))
+  if (!(Strm_CmdsList >> _Speed_mmS) || _Speed_mmS == 0.0)
   {
     std::cout << "Nie wczytano poprawnie predkosci " << std::endl;
     return false;
   }
 
-  if (!(Strm_CmdsList >> _Distance))
+  if (!(Strm_CmdsList >> _Distance) || _Distance < 0.0)
   {
     std::cout << "Nie wczytano poprawnie odleglosci " << std::endl;
     return false;

@@ -1,12 +1,21 @@
-#define ROTATE_SPEED     30
+#define ROTATE_SPEED 45
 /*
  *  Przykladowy zestaw polecen
  */
-  Set   Podstawa 0 0 0 0 0 0      // Polozenie i orientacja obiektu A 
-  Set   Podstawa.Ramie1 1 1 1 0 0 0   // Polozenie i orientacja obiektu B
-  Rotate Podstawa OX ROTATE_SPEED 40
-  Pause  1000                  /* Zawieszenie na 1 sek. */
-  Move   Podstawa  1 1
-  Rotate Podstawa.Ramie1 OZ ROTATE_SPEED 60 /* Gdyby Rotate i Move wykonywane byloby */
-  Move   Podstawa.Ramie1 1 2              /* jednoczesnie, to powodowaloby to      */
-                                 /* przesuniecie po luku                  */
+  Set Tors 0 0 0 0 0 0
+
+  Move Tors 1 2
+
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+
+  Rotate Tors.RekaPrawa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 90
+  Rotate Tors.RekaPrawa OY ROTATE_SPEED 45
+
+  Rotate Tors.Glowa OZ ROTATE_SPEED 45
+  Rotate Tors.Glowa OZ -ROTATE_SPEED 90
+  Rotate Tors.Glowa OZ ROTATE_SPEED 45
+
+  Move Tors -10 2

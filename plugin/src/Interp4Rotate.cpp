@@ -63,7 +63,7 @@ bool Interp4Rotate::ExecCmd(AbstractScene &rScn,
     std::cout << "Nie znaleziono obiektu o nazwie: " << _obj_name << std::endl;
     return false;
   }
-  double step_deg = _rotation_angle_deg / N;
+  double step_deg = (_rotation_speed_deg > 0.0 ? 1 : -1) * _rotation_angle_deg / N;
   double step_time_us = std::fabs(_rotation_angle_deg / _rotation_speed_deg) * 1e6 / N;
   double current_angle_deg;
   if (_axis_name == "OX")
@@ -107,13 +107,13 @@ bool Interp4Rotate::ExecCmd(AbstractScene &rScn,
                              pMobObj->GetPositoin_m()))
     {
       std::cout << "Blad aktualizacji obiektu o nazwie: " << _obj_name << std::endl;
-      pMobObj->UnLockAccess();
       rComChann.UnlockAccess();
+      pMobObj->UnLockAccess();
       return false;
     }
 
-    pMobObj->UnLockAccess();
     rComChann.UnlockAccess();
+    pMobObj->UnLockAccess();
 
     usleep(step_time_us);
   }
@@ -139,12 +139,12 @@ bool Interp4Rotate::ReadParams(std::istream &Strm_CmdsList)
     std::cout << "Nie wczytano poprawnie nazwy osi " << std::endl;
     return false;
   }
-  if (!(Strm_CmdsList >> _rotation_speed_deg))
+  if (!(Strm_CmdsList >> _rotation_speed_deg) || _rotation_speed_deg == 0.0)
   {
     std::cout << "Nie wczytano poprawnie predkosci katowej " << std::endl;
     return false;
   }
-  if (!(Strm_CmdsList >> _rotation_angle_deg))
+  if (!(Strm_CmdsList >> _rotation_angle_deg) || _rotation_angle_deg < 0.0)
   {
     std::cout << "Nie wczytano poprawnie kata obrotu " << std::endl;
     return false;
