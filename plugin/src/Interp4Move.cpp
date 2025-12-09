@@ -87,13 +87,12 @@ bool Interp4Move::ExecCmd(AbstractScene &rScn,
                              current_pos))
     {
       std::cout << "Blad aktualizacji obiektu o nazwie: " << _obj_name << std::endl;
-      rComChann.UnlockAccess();
       pMobObj->UnLockAccess();
+      rComChann.UnlockAccess();
       return false;
     }
-    rComChann.UnlockAccess();
-    
     pMobObj->UnLockAccess();
+    rComChann.UnlockAccess();
 
     usleep(step_time_us);
   }

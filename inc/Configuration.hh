@@ -2,13 +2,13 @@
 #define CONFIGURATION_HH
 
 #include <string>
-#include <vector>
+#include <list>
 #include "CuboidConfig.hh"
 
 class Configuration {
 
-  std::vector<std::string> _libraryPaths;
-  std::vector<CuboidConfig> _cuboids;
+  std::list<std::string> _libraryPaths;
+  std::list<CuboidConfig> _cuboids;
 
   public:
     Configuration() {}
@@ -21,11 +21,11 @@ class Configuration {
       _cuboids.push_back(cuboid);
     }
 
-    const std::vector<std::string> &GetLibraryPaths() const {
+    const std::list<std::string> &GetLibraryPaths() const {
       return _libraryPaths;
     }
 
-    const std::vector<CuboidConfig> &GetCuboids() const {
+    const std::list<CuboidConfig> &GetCuboids() const {
       return _cuboids;
     }
 };

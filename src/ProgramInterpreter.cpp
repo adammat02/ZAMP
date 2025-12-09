@@ -73,6 +73,18 @@ bool ProgramInterpreter::init()
     return true;
 }
 
+void task(AbstractInterp4Command *pCmd, Scene &rScn, AbstractComChannel &rComChann)
+{
+    pCmd->PrintCmd();
+    if (!pCmd->ExecCmd(rScn, NULL, rComChann))
+    {
+        std::cerr << "Niepowodzenie wykonania polecenia" << std::endl;
+        delete pCmd;
+        return;
+    }
+    delete pCmd;
+}
+
 bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
 {
     std::istringstream Stream4Cmds;
@@ -86,9 +98,19 @@ bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
 
     while (Stream4Cmds >> slowo)
     {
-        if (slowo == "Begin_Parallel_Actions" || slowo == "End_Parallel_Actions")
+        if (slowo == "Begin_Parallel_Actions")
         {
-            std::cout << "Polecenia Begin_Parallel_Actions i End_Parallel_Actions nie sa obslugiwane." << std::endl;
+            _parallel_mode = true;
+            continue;
+        }
+        else if (slowo == "End_Parallel_Actions")
+        {
+            for (std::thread &th : _threads)
+            {
+                th.join();
+            }
+            _threads.clear();
+            _parallel_mode = false;
             continue;
         }
 
@@ -111,12 +133,20 @@ bool ProgramInterpreter::ExecProgram(const char *NazwaPliku)
             std::cerr << "Niewczytano parametrow" << std::endl;
             return false;
         }
-        
-        pCmd->PrintCmd();
-        if (!pCmd->ExecCmd(_Scn, NULL, _Chann2Serv))
+
+        if (_parallel_mode)
         {
-            std::cerr << "Niepowodzenie wykonania polecenia" << std::endl;
-            return false;
+            std::thread th(task, pCmd.release(), std::ref(_Scn), std::ref(_Chann2Serv));
+            _threads.push_back(std::move(th));
+        }
+        else
+        {
+            pCmd->PrintCmd();
+            if (!pCmd->ExecCmd(_Scn, NULL, _Chann2Serv))
+            {
+                std::cerr << "Niepowodzenie wykonania polecenia" << std::endl;
+                return false;
+            }
         }
     }
     return true;

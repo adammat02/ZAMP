@@ -5,6 +5,8 @@
 #include <sstream>
 #include <string>
 #include <cstdio>
+#include <thread>
+#include <list>
 #include "Set4LibInterfaces.hh"
 #include "Scene.hh"
 #include "ComChannel.hh"
@@ -16,6 +18,9 @@ class ProgramInterpreter
   Set4LibInterfaces _LibManager;
   Scene _Scn;
   ComChannel _Chann2Serv;
+
+  std::list<std::thread> _threads;
+  bool _parallel_mode = false;
 
   bool ExecPreprocesor(const char *NazwaPliku, std::istringstream &Stream4Cmds);
   bool OpenConnection();

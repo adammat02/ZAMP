@@ -4,18 +4,107 @@
  */
   Set Tors 0 0 0 0 0 0
 
+  Begin_Parallel_Actions
+  Move Tors 1 1
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaPrawa OY -ROTATE_SPEED 45
+  Rotate Tors.RekaLewa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 45
+  End_Parallel_Actions
+
+  Begin_Parallel_Actions
   Move Tors 1 2
-
-  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
   Rotate Tors.NogaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.NogaPrawa OY ROTATE_SPEED 90
+  Rotate Tors.RekaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.RekaPrawa OY ROTATE_SPEED 90
+  End_Parallel_Actions
+
+  Begin_Parallel_Actions
+  Move Tors 1 1
   Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaPrawa OY -ROTATE_SPEED 45
+  Rotate Tors.RekaLewa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 45
+  End_Parallel_Actions
 
-  Rotate Tors.RekaPrawa OY ROTATE_SPEED 45
-  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 90
-  Rotate Tors.RekaPrawa OY ROTATE_SPEED 45
+  Rotate Tors OZ ROTATE_SPEED 90
 
-  Rotate Tors.Glowa OZ ROTATE_SPEED 45
-  Rotate Tors.Glowa OZ -ROTATE_SPEED 90
-  Rotate Tors.Glowa OZ ROTATE_SPEED 45
+  Begin_Parallel_Actions
+  Move Tors 1 1
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaPrawa OY -ROTATE_SPEED 45
+  Rotate Tors.RekaLewa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 45
+  End_Parallel_Actions
 
-  Move Tors -10 2
+  Begin_Parallel_Actions
+  Move Tors 1 2
+  Rotate Tors.NogaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.NogaPrawa OY ROTATE_SPEED 90
+  Rotate Tors.RekaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.RekaPrawa OY ROTATE_SPEED 90
+  End_Parallel_Actions
+
+  Begin_Parallel_Actions
+  Move Tors 1 1
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaPrawa OY -ROTATE_SPEED 45
+  Rotate Tors.RekaLewa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 45
+  End_Parallel_Actions
+
+  Rotate Tors OZ ROTATE_SPEED 90
+
+  Begin_Parallel_Actions
+  Move Tors 1 1
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaPrawa OY -ROTATE_SPEED 45
+  Rotate Tors.RekaLewa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 45
+  End_Parallel_Actions
+
+  Begin_Parallel_Actions
+  Move Tors 1 2
+  Rotate Tors.NogaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.NogaPrawa OY ROTATE_SPEED 90
+  Rotate Tors.RekaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.RekaPrawa OY ROTATE_SPEED 90
+  End_Parallel_Actions
+
+  Begin_Parallel_Actions
+  Move Tors 1 1
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaPrawa OY -ROTATE_SPEED 45
+  Rotate Tors.RekaLewa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 45
+  End_Parallel_Actions
+
+  Rotate Tors OZ ROTATE_SPEED 90
+
+  Begin_Parallel_Actions
+  Move Tors 1 1
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaPrawa OY -ROTATE_SPEED 45
+  Rotate Tors.RekaLewa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 45
+  End_Parallel_Actions
+
+  Begin_Parallel_Actions
+  Move Tors 1 2
+  Rotate Tors.NogaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.NogaPrawa OY ROTATE_SPEED 90
+  Rotate Tors.RekaLewa OY -ROTATE_SPEED 90
+  Rotate Tors.RekaPrawa OY ROTATE_SPEED 90
+  End_Parallel_Actions
+
+  Begin_Parallel_Actions
+  Move Tors 1 1
+  Rotate Tors.NogaLewa OY ROTATE_SPEED 45
+  Rotate Tors.NogaPrawa OY -ROTATE_SPEED 45
+  Rotate Tors.RekaLewa OY ROTATE_SPEED 45
+  Rotate Tors.RekaPrawa OY -ROTATE_SPEED 45
+  End_Parallel_Actions
+
+  Rotate Tors OZ ROTATE_SPEED 90
+
