@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(PROJ_NAME "cmds_interpreter")
+set(PROJ_NAME "program")
 project(${PROJ_NAME})
 
 add_subdirectory(plugin)
